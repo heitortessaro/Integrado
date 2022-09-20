@@ -3,6 +3,7 @@ import { IServiceUniversity } from '../interfaces/IServiceUniversity';
 import { IUniversity, UniversityZodSchema } from '../interfaces/IUniversity';
 // import { IModel } from '../interfaces/IModel';
 import { IModelUniversity } from '../interfaces/IModelUniversity';
+import { ErrorTypes } from '../errors/catalog';
 
 class UniversityService implements IServiceUniversity<IUniversity> {
   // implements the IUniversity interface into the IModel, defining the generics T
@@ -23,22 +24,19 @@ class UniversityService implements IServiceUniversity<IUniversity> {
 
   public async read(): Promise<IUniversity[]> {
     const universities = await this._university.read();
-    // todo: after defining error catalog insert error type
-    if (!universities) throw new Error();
+    if (!universities) throw new Error(ErrorTypes.EntityNotFound);
     return universities;
   }
 
   public async readByCountry(country: string): Promise<IUniversity[]> {
     const universities = await this._university.readByCountry(country);
-    // todo: after defining error catalog insert error type
-    if (!universities) throw new Error();
+    if (!universities) throw new Error(ErrorTypes.EntityNotFound);
     return universities;
   }
 
   public async readOneById(_id: string): Promise<IUniversity> {
     const university = await this._university.readOneById(_id);
-    // todo: after defining error catalog insert error type
-    if (!university) throw new Error();
+    if (!university) throw new Error(ErrorTypes.EntityNotFound);
     return university;
   }
 
@@ -47,15 +45,13 @@ class UniversityService implements IServiceUniversity<IUniversity> {
     const parsed = UniversityZodSchema.safeParse(obj);
     if (!parsed.success) throw parsed.error;
     const university = await this._university.update(_id, parsed.data);
-    // todo: after defining error catalog insert error type
-    if (!university) throw new Error();
+    if (!university) throw new Error(ErrorTypes.EntityNotFound);
     return university;
   }
 
   public async delete(_id: string): Promise<IUniversity> {
     const university = await this._university.delete(_id);
-    // todo: after defining error catalog insert error type
-    if (!university) throw new Error();
+    if (!university) throw new Error(ErrorTypes.EntityNotFound);
     return university;
   }
 }

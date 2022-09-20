@@ -5,6 +5,7 @@ import UniversityModel from '../../../models/Universities';
 import { universityMock, universityMockWithId } from '../../mocks/universityMock';
 
 import { IUniversity } from '../../../interfaces/IUniversity';
+import { ErrorTypes } from '../../../errors/catalog';
 
 const { expect } = chai;
 
@@ -71,8 +72,7 @@ describe('University Model', () => {
       try {
         await universityModel.readOneById('WrongId');
       } catch (error: any) {
-        // todo: add validation considering error type
-        expect(error);
+        expect(error.message).to.be.eq(ErrorTypes.InvalidMongoId);
       }
     });
     it('error: _id not found', async () => {
@@ -90,8 +90,7 @@ describe('University Model', () => {
       try {
         await universityModel.delete('WrongId');
       } catch (error: any) {
-        // todo: add validation considering error type
-        expect(error);
+        expect(error.message).to.be.eq(ErrorTypes.InvalidMongoId);;
       }
     });
     it('error: _id not found', async () => {
@@ -109,8 +108,7 @@ describe('University Model', () => {
       try {
         await universityModel.update('WrongId', universityMock);
       } catch (error: any) {
-        // todo: add validation considering error type
-        expect(error);
+        expect(error.message).to.be.eq(ErrorTypes.InvalidMongoId);
       }
     });
     it('error: _id not found', async () => {
