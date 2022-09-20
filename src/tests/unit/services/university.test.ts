@@ -47,6 +47,90 @@ describe('University Service', () => {
         err = error;
       }
       expect(err).to.be.instanceOf(ZodError);
+    });
+  });
+
+  describe('reading universities registers', () => {
+    it('sucessfully read university registers', async () => {
+      const universities = await universityService.read();
+      expect(universities).to.be.deep.equal(universityList);
+    });
+    it('error: results not found', async () => {
+      try {
+        await universityService.read();
+      } catch (error: any) {
+        // todo: add validation considering error type
+        expect(error);
+      }
+    });
+  });
+
+  describe('reading universities registers by country', () => {
+    it('sucessfully read universities registers', async () => {
+      const universities = await universityService.readByCountry('brasil');
+      expect(universities).to.be.deep.equal(universityList);
+    });
+    it('error: results not found', async () => {
+      try {
+        await universityService.readByCountry('brasil');
+      } catch (error: any) {
+        // todo: add validation considering error type
+        expect(error);
+      }
+    });
+  });
+
+  describe('reading universities registers by id', () => {
+    it('sucessfully read university register', async () => {
+      const university = await universityService.readOneById(validMongoId);
+      expect(university).to.be.deep.equal(universityMockWithId);
+    });
+    it('error: id not found', async () => {
+      try {
+        await universityService.readOneById('WrongId');
+      } catch (error: any) {
+        // todo: add validation considering error type
+        expect(error);
+      }
+    });
+  });
+
+  describe('deleting a university register', () => {
+    it('sucessfully delete a register', async () => {
+      const university = await universityService.delete(validMongoId);
+      expect(university).to.be.deep.equal(universityMockWithId);
+    });
+    it('error: id not found', async () => {
+      try {
+        await universityService.delete('WrongId');
+      } catch (error: any) {
+        // todo: add validation considering error type
+        expect(error);
+      }
+    });
+  });
+
+  describe('updating a university register', () => {
+    it('sucessfully update a register', async () => {
+      const university = await universityService.update(validMongoId, universityMock);
+      expect(university).to.be.deep.equal(universityMockWithId);
+    });
+    it('error: id not found', async () => {
+      try {
+        await universityService.update(validMongoId, universityMock);
+      } catch (error: any) {
+        // todo: add validation considering error type
+        expect(error);
+      }
+    })
+    it('error: invalid body data', async () => {
+      let err
+      try {
+        await universityService.update(validMongoId, {} as any);
+      } catch (error) {
+        err = error;
+      }
+      expect(err).to.be.instanceOf(ZodError);
     })
   })
 })
