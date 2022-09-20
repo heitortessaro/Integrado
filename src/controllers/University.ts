@@ -21,8 +21,8 @@ class UniversityController {
   }
 
   public async read(req: Request, res: Response<IUniversity[]>) {
-    if (req.params.country) {
-      const result = await this._service.readByCountry(req.params.country);
+    if (req.query.country) {
+      const result = await this._service.readByCountry(req.query.country as string);
       return res.status(200).json(result);
     }
     const result = await this._service.read();
