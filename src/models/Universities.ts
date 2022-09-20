@@ -1,4 +1,5 @@
 import { model as mongooseCreateModel, Schema } from 'mongoose';
+import { IModelUniversity } from '../interfaces/IModelUniversity';
 import { IUniversity } from '../interfaces/IUniversity';
 import MongoModel from './MongoModels';
 
@@ -19,7 +20,7 @@ const universityMongooseSchema = new Schema<IUniversity>({
   stateProvince: String,
 }, { versionKey: false });
 
-class University extends MongoModel<IUniversity> {
+class University extends MongoModel<IUniversity> implements IModelUniversity<IUniversity> {
   constructor(model = mongooseCreateModel('University', universityMongooseSchema)) {
     super(model);
   }
