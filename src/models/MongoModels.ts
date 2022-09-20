@@ -19,11 +19,6 @@ abstract class MongoModel<T> implements IModel<T> {
     return this._model.find();
   }
 
-  // todo: should define a way to use pages. max number per page equal 20
-  public async readByCountry(country: string): Promise<T[] | null> {
-    return this._model.find({ country });
-  }
-
   public async readOneById(_id: string): Promise<T | null> {
     // todo: add an specific error message
     if (!isValidObjectId(_id)) throw new Error();
