@@ -1,4 +1,4 @@
-import { IUniversity } from "../../interfaces/IUniversity";
+import { IUniversity } from '../../interfaces/IUniversity';
 
 const universityMock: IUniversity = {
   alphaTwoCode: 'BR',
@@ -7,7 +7,7 @@ const universityMock: IUniversity = {
   country: 'brasil',
   domains: ['ufsc.edu.br'],
   stateProvince: 'Santa Catarina',
-}
+};
 
 const universityMockWithId: IUniversity & { _id: string } = {
   _id: '6323930286e451c2a5727b9d',
@@ -17,9 +17,9 @@ const universityMockWithId: IUniversity & { _id: string } = {
   country: 'brasil',
   domains: ['ufsc.edu.br'],
   stateProvince: 'Santa Catarina',
-}
+};
 
 export {
   universityMock,
   universityMockWithId,
-}
+};
