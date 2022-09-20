@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 import { ZodError } from 'zod';
+import { ErrorTypes } from '../../../errors/catalog';
 import UniversityModel from '../../../models/Universities';
 import UniversityService from '../../../services/University';
 import { universityMock, universityMockWithId } from '../../mocks/universityMock';
@@ -59,8 +60,7 @@ describe('University Service', () => {
       try {
         await universityService.read();
       } catch (error: any) {
-        // todo: add validation considering error type
-        expect(error);
+        expect(error.message).to.be.equal(ErrorTypes.EntityNotFound);
       }
     });
   });
@@ -74,8 +74,7 @@ describe('University Service', () => {
       try {
         await universityService.readByCountry('brasil');
       } catch (error: any) {
-        // todo: add validation considering error type
-        expect(error);
+        expect(error.message).to.be.equal(ErrorTypes.EntityNotFound);
       }
     });
   });
@@ -89,8 +88,7 @@ describe('University Service', () => {
       try {
         await universityService.readOneById('WrongId');
       } catch (error: any) {
-        // todo: add validation considering error type
-        expect(error);
+        expect(error.message).to.be.equal(ErrorTypes.EntityNotFound);;
       }
     });
   });
@@ -104,8 +102,7 @@ describe('University Service', () => {
       try {
         await universityService.delete('WrongId');
       } catch (error: any) {
-        // todo: add validation considering error type
-        expect(error);
+        expect(error.message).to.be.equal(ErrorTypes.EntityNotFound);;
       }
     });
   });
@@ -119,8 +116,7 @@ describe('University Service', () => {
       try {
         await universityService.update(validMongoId, universityMock);
       } catch (error: any) {
-        // todo: add validation considering error type
-        expect(error);
+        expect(error.message).to.be.equal(ErrorTypes.EntityNotFound);;
       }
     })
     it('error: invalid body data', async () => {
