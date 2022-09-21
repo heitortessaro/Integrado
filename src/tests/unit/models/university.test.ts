@@ -1,6 +1,6 @@
 import * as sinon from 'sinon';
 import chai from 'chai';
-import { Model } from 'mongoose';
+import { Model, Query } from 'mongoose';
 import UniversityModel from '../../../models/Universities';
 import { universityMock, universityMockWithId } from '../../mocks/universityMock';
 
@@ -17,8 +17,14 @@ describe('University Model', () => {
   before(async function () {
     sinon.stub(Model, 'create').resolves(universityMockWithId);
     sinon.stub(Model, 'find')
-      .onCall(0).resolves(universityList)
-      .onCall(1).resolves(universityList)
+      .onCall(0).returns({
+        limit: sinon.stub().returnsThis(),
+        skip: sinon.stub().returns(universityList),
+      } as any)
+      .onCall(1).returns({
+        limit: sinon.stub().returnsThis(),
+        skip: sinon.stub().returns(universityList),
+      } as any)
       .onCall(2).resolves(universityList);
     sinon.stub(Model, 'findById')
       .onCall(0).resolves(universityMockWithId)
@@ -44,7 +50,7 @@ describe('University Model', () => {
 
   describe('searching university registers', () => {
     it('sucessfully found', async () => {
-      const universities = await universityModel.read();
+      const universities = await universityModel.read(0);
       expect(universities).to.be.an('array');
       // the ? avoids error in case of universities be null
       universities?.forEach((university: IUniversity, index: number) => {
@@ -55,7 +61,7 @@ describe('University Model', () => {
 
   describe('searching university registers by country', () => {
     it('sucessfully found', async () => {
-      const universities = await universityModel.readByCountry('Brazil');
+      const universities = await universityModel.readByCountry('Brazil', 0);
       expect(universities).to.be.an('array');
       // the ? avoids error in case of universities be null
       universities?.forEach((university: IUniversity, index: number) => {

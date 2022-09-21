@@ -26,7 +26,6 @@ class UniversityController {
       return res.status(200).json(convertToExternalArrayPattern(result));
     }
     const result = await this._service.read(page);
-    console.log(result.length);
     return res.status(200).json(convertToExternalArrayPattern(result));
   }
 
@@ -37,7 +36,6 @@ class UniversityController {
 
   public async delete(req: Request, res: Response) {
     const result = await this._service.delete(req.params.id);
-    console.log(convertToExternalPattern(result));
     return res.status(200).json(convertToExternalPattern(result));
   }
 

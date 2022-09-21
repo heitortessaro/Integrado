@@ -6,7 +6,7 @@ import UniversityModel from '../../../models/Universities';
 import UniversityService from '../../../services/University';
 import { universityMock, universityMockWithId } from '../../mocks/universityMock';
 
-describe.only('University Service', () => {
+describe('University Service', () => {
   const universityModel = new UniversityModel();
   const universityService = new UniversityService(universityModel);
   const universityList = [universityMockWithId];
@@ -63,12 +63,12 @@ describe.only('University Service', () => {
 
   describe('reading universities registers', () => {
     it('sucessfully read university registers', async () => {
-      const universities = await universityService.read();
+      const universities = await universityService.read(0);
       expect(universities).to.be.deep.equal(universityList);
     });
     it('error: results not found', async () => {
       try {
-        await universityService.read();
+        await universityService.read(0);
       } catch (error: any) {
         expect(error.message).to.be.equal(ErrorTypes.EntityNotFound);
       }
@@ -77,12 +77,12 @@ describe.only('University Service', () => {
 
   describe('reading universities registers by country', () => {
     it('sucessfully read universities registers', async () => {
-      const universities = await universityService.readByCountry('brasil');
+      const universities = await universityService.readByCountry('brasil', 0);
       expect(universities).to.be.deep.equal(universityList);
     });
     it('error: results not found', async () => {
       try {
-        await universityService.readByCountry('brasil');
+        await universityService.readByCountry('brasil', 0);
       } catch (error: any) {
         expect(error.message).to.be.equal(ErrorTypes.EntityNotFound);
       }
