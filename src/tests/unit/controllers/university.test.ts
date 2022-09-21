@@ -10,7 +10,7 @@ import UniversityController from '../../../controllers/University';
 import UniversityService from '../../../services/University';
 import UniversityModel from '../../../models/Universities';
 
-describe.only('University Controller', () => {
+describe('University Controller', () => {
   const universityModel = new UniversityModel();
   const universityService = new UniversityService(universityModel);
   const universityController = new UniversityController(universityService);
