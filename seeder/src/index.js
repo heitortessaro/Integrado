@@ -1,5 +1,5 @@
 const { connectToDatabase } = require('./models/connections');
-const { seeder } = require('./seeder');
+const seeder = require('./seeder');
 
 connectToDatabase()
   .then(() => {
