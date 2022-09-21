@@ -13,12 +13,21 @@ class UniversityService implements IServiceUniversity<IUniversity> {
   }
 
   // methods
+  private async validateNewUniversity(obj: IUniversity): Promise<void> {
+    const universities = await this._university
+      .findOneByNameCountryState(obj.name, obj.country, obj.stateProvince);
+    if (universities === null || universities.length > 0) {
+      throw new Error(ErrorTypes.InvalidNewData);
+    }
+  }
+
   public async create(obj: unknown) {
     // define the obj as unknown to use the ZodSchema to check the format
     const parsed = UniversityZodSchema.safeParse(obj);
     if (!parsed.success) {
       throw parsed.error;
     }
+    await this.validateNewUniversity(parsed.data);
     return this._university.create(parsed.data);
   }
 

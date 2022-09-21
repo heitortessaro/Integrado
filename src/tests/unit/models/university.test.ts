@@ -18,7 +18,8 @@ describe('University Model', () => {
     sinon.stub(Model, 'create').resolves(universityMockWithId);
     sinon.stub(Model, 'find')
       .onCall(0).resolves(universityList)
-      .onCall(1).resolves(universityList);
+      .onCall(1).resolves(universityList)
+      .onCall(2).resolves(universityList);
     sinon.stub(Model, 'findById')
       .onCall(0).resolves(universityMockWithId)
       .onCall(1).resolves(null);
@@ -54,7 +55,19 @@ describe('University Model', () => {
 
   describe('searching university registers by country', () => {
     it('sucessfully found', async () => {
-      const universities = await universityModel.readByCountry('brasil');
+      const universities = await universityModel.readByCountry('Brazil');
+      expect(universities).to.be.an('array');
+      // the ? avoids error in case of universities be null
+      universities?.forEach((university: IUniversity, index: number) => {
+        expect(university).to.be.deep.equal(universityList[index]);
+      })
+    });
+  });
+
+  describe('searching university registers by name, country, and state province', () => {
+    it('sucessfully found', async () => {
+      const universities = await universityModel
+        .findOneByNameCountryState('UFSC', 'Brazil', 'Santa Catarina');
       expect(universities).to.be.an('array');
       // the ? avoids error in case of universities be null
       universities?.forEach((university: IUniversity, index: number) => {
