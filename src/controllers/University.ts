@@ -20,11 +20,13 @@ class UniversityController {
   }
 
   public async read(req: Request, res: Response<IUniversity[]>) {
+    const page: number = req.body.page ? req.body.page : 0;
     if (req.query.country) {
-      const result = await this._service.readByCountry(req.query.country as string);
+      const result = await this._service.readByCountry(req.query.country as string, page);
       return res.status(200).json(convertToExternalArrayPattern(result));
     }
-    const result = await this._service.read();
+    const result = await this._service.read(page);
+    console.log(result.length);
     return res.status(200).json(convertToExternalArrayPattern(result));
   }
 
