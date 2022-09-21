@@ -29,6 +29,14 @@ class University extends MongoModel<IUniversity> implements IModelUniversity<IUn
   public async readByCountry(country: string): Promise<IUniversity[] | null> {
     return this._model.find({ country });
   }
+
+  public async findOneByNameCountryState(
+    name: string,
+    country: string,
+    stateProvince: string,
+  ): Promise<IUniversity[] | null> {
+    return this._model.find({ name, country, stateProvince });
+  }
 }
 
 export default University;
