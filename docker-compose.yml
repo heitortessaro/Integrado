@@ -8,7 +8,7 @@ services:
     # Nome do container para facilitar execução
     container_name: universities
     # Caminho da Dockerfile
-    build: ./ 
+    build: ./api 
     # Mesmo que `docker run -t`
     tty: true
     # Mesmo que `docker run -i`
@@ -23,7 +23,7 @@ services:
     volumes:
       # Monta o diretório atual, com todos os dados do projeto, 
       # dentro do diretório /app
-      - ./:/app
+      - ./api:/app
     # Lista de serviços do qual este serviço depende
     depends_on:
       # Precisa do mongo funcionando antes de subir o node
