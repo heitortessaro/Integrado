@@ -1,5 +1,6 @@
 const countries = require('./selectedCountries');
 const fetchData = require('./fetchData');
+const { convertToInternalPatternArray } = require('./objKeyConvertion');
 
 const getAllExternalData = async () => {
   let allUniversitiesData;
@@ -12,7 +13,7 @@ const getAllExternalData = async () => {
   } catch (error) {
     console.log(error);
   }
-  return allUniversitiesData.flat(1);
+  return convertToInternalPatternArray(allUniversitiesData.flat(1));
 };
 
 module.exports = getAllExternalData;
