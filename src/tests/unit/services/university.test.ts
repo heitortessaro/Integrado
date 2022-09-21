@@ -6,7 +6,7 @@ import UniversityModel from '../../../models/Universities';
 import UniversityService from '../../../services/University';
 import { universityMock, universityMockWithId } from '../../mocks/universityMock';
 
-describe('University Service', () => {
+describe.only('University Service', () => {
   const universityModel = new UniversityModel();
   const universityService = new UniversityService(universityModel);
   const universityList = [universityMockWithId];
@@ -14,6 +14,9 @@ describe('University Service', () => {
 
   before(() => {
     sinon.stub(universityModel, 'create').resolves(universityMockWithId);
+    sinon.stub(universityModel, 'findOneByNameCountryState')
+      .onCall(0).resolves([])
+      .onCall(1).resolves(universityList);
     sinon.stub(universityModel, 'read')
       .onCall(0).resolves(universityList)
       .onCall(1).resolves(null);
@@ -49,6 +52,13 @@ describe('University Service', () => {
       }
       expect(err).to.be.instanceOf(ZodError);
     });
+    it('error: equal record is already in the database', async () => {
+      try {
+        await universityService.create(universityMock);
+      } catch (error: any) {
+        expect(error.message).to.be.equal(ErrorTypes.InvalidNewData);
+      }
+    })
   });
 
   describe('reading universities registers', () => {
