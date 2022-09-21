@@ -6,6 +6,8 @@ import { IModelUniversity } from '../interfaces/IModelUniversity';
 import { ErrorTypes } from '../errors/catalog';
 
 class UniversityService implements IServiceUniversity<IUniversity> {
+  // defines the number of recors return
+  private numberPerPage = 20;
   // implements the IUniversity interface into the IModel, defining the generics T
   private _university: IModelUniversity<IUniversity>;
   constructor(model: IModelUniversity<IUniversity>) {
@@ -31,14 +33,14 @@ class UniversityService implements IServiceUniversity<IUniversity> {
     return this._university.create(parsed.data);
   }
 
-  public async read(): Promise<IUniversity[]> {
-    const universities = await this._university.read();
+  public async read(page: number): Promise<IUniversity[]> {
+    const universities = await this._university.read(page * this.numberPerPage);
     if (!universities) throw new Error(ErrorTypes.EntityNotFound);
     return universities;
   }
 
-  public async readByCountry(country: string): Promise<IUniversity[]> {
-    const universities = await this._university.readByCountry(country);
+  public async readByCountry(country: string, page: number): Promise<IUniversity[]> {
+    const universities = await this._university.readByCountry(country, page * this.numberPerPage);
     if (!universities) throw new Error(ErrorTypes.EntityNotFound);
     return universities;
   }
