@@ -1,0 +1,9 @@
+node_modules/
+tests/
+src/tests
+src/tests/mocks
+src/tests/unit
+src/tests/unit/models
+src/tests/unit/services
+src/tests/unit/services/university.test.ts
+
