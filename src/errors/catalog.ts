@@ -1,6 +1,7 @@
 export enum ErrorTypes {
   EntityNotFound = 'EntityNotFound',
   InvalidMongoId = 'InvalidMongoId',
+  InvalidNewData = 'InvalidNewData',
 }
 
 // obj used to construct the API response
@@ -22,6 +23,10 @@ export const errorCatalog: ErrorCatalog = {
   },
   InvalidMongoId: {
     message: 'Id must have 24 hexadecimal characters',
+    httpStatus: 400,
+  },
+  InvalidNewData: {
+    message: 'Invalid new data. An equal register already exists in the database',
     httpStatus: 400,
   },
 };
