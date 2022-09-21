@@ -7,7 +7,7 @@ const dictionary = {
   stateProvince: 'state-province‌',
 };
 
-export default function convertToInternalPattern(obj) {
+function convertToInternalPattern(obj) {
   const keys = Object.keys(obj);
   const values = Object.values(obj);
   const entitiesDic = Object.entries(dictionary);
@@ -19,6 +19,12 @@ export default function convertToInternalPattern(obj) {
   return finalObj;
 }
 
-module.exports = {
-  convertToInternalPattern,
-};
+function convertToInternalPatternArray(universitiesArray) {
+  const finalArray = [];
+  universitiesArray.forEach((university) => {
+    finalArray.push(convertToInternalPattern(university));
+  });
+  return finalArray;
+}
+
+module.exports = { convertToInternalPatternArray };
