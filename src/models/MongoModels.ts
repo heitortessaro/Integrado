@@ -16,8 +16,8 @@ abstract class MongoModel<T> implements IModel<T> {
   }
 
   // todo: should define a way to use pages. max number per page equal 20
-  public async read(): Promise<T[] | null> {
-    return this._model.find();
+  public async read(page: number): Promise<T[] | null> {
+    return this._model.find().limit(20).skip(page);
   }
 
   public async readOneById(_id: string): Promise<T | null> {

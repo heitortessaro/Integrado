@@ -26,8 +26,8 @@ class University extends MongoModel<IUniversity> implements IModelUniversity<IUn
   }
 
   // todo: should define a way to use pages. max number per page equal 20
-  public async readByCountry(country: string): Promise<IUniversity[] | null> {
-    return this._model.find({ country });
+  public async readByCountry(country: string, page: number): Promise<IUniversity[] | null> {
+    return this._model.find({ country }).limit(20).skip(page);
   }
 
   public async findOneByNameCountryState(
