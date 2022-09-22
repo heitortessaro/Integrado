@@ -1,9 +1,9 @@
 node_modules/
 tests/
 src/tests
-src/tests/mocks
+src/tests/mocks/universityMock.ts
 src/tests/unit
-src/tests/unit/models
+src/tests/unit/models/university.test.ts
 src/tests/unit/services
 src/tests/unit/services/university.test.ts
-
+tsconfig.json
