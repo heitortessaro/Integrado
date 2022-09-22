@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsnd src/index.ts",
-    "test:dev": "mocha -r ts-node/register src/tests/unit/**/*.test.ts --exit -t 60000"
+    "test:dev": "mocha -r ts-node/register src/tests/unit/**/*.test.ts --exit -t 60000",
+    "build": "rimraf ./dist && tsc",
+    "start": "npm run build && node dist/src/index.js"
   },
   "repository": {
     "type": "git",
