@@ -6,7 +6,11 @@ Este projeto é resultado do desafio técnico Back-End proposto pela empresa Bis
 - Parte 2: Criar uma API que providencie um CRUD (create,‌ ‌retrieve,‌ ‌update,‌ ‌delete)‌‌
   das‌ ‌universidades‌ ‌anteriormente‌ ‌cadastradas‌ ‌no‌ ‌banco de dados.‌
 
-Para facilitar a navegação na documentação do projetos, sugiro utilizar a ferramenta provida pelo Github:
+O script relacionado à parte 1 do desafio se encontra no diretório **/seeder**. Já a API que implementa o CRUD se encontra no diretório **/api**.
+
+No restante dessa documentação são apresentadas informações como as tecnologias e arquitetura utilizadas no projeto, a documentação da API e guias de como rodar a aplicação em sua máquina.
+
+**OBS.**:Para facilitar a navegação na documentação do projetos, sugiro utilizar a ferramenta provida pelo Github:
 
 <img src="assets/readme.png" alt="drawing" style="width:110px;"/>
 
@@ -76,9 +80,9 @@ A aplicação tentou aplicar a filosofia **SOLID** em conjunto com a arquitetura
  ┗ 📜index.ts
 ```
 
-## Rodando o Projeto na sua máquina
+## Rodando o Projeto na Sua Máquina
 
-Na sua máquina você deve ter:
+Para você rodar o projeto na sua máquina é necessário que sejam satisfeitas as seguintes condições:
 
 - Sistema Operacional Distribuição Unix
 - Node versão 16 (versão igual ou superior à `16.15.0 LTS`)
@@ -111,58 +115,58 @@ Passo 4. Mude para o diretório clonado:
 cd Integrado
 ```
 
-Passo 5. Inslate todas as dependências:
-
-```bash
-npm install
-```
-
-Passo 6. Rode os containers da aplicação
+Passo 5. Rode os containers da aplicação
 
 ```bash
 docker-compose up -d
 ```
 
-Ao rodar o Passo 6, as imagens relacionadas a cada um dos dockerfiles (banco de dados, API, scrept seeder) serão baixadas e depois as aplicações serão inicializadas.
+Ao rodar o Passo 5, as imagens relacionadas a cada um dos dockerfiles (banco de dados, API, scrept seeder) serão baixadas e depois as aplicações serão inicializadas. As configurações definidas no arquivo docker-compose, presente na raíz do projeto, estabelecem a seguinte sequência de inicialização:
 
-### Acessando a Aplicação Localmente
+- **Banco de dados**, com a porta **27017** exposta.
+- **Seeder**, com a porta 3002 exposta. Esse container é finalizado após o script ter capturado os dados externos e enviado para o banco de dados.
+- **API**, com a porta **3001** exposta.
 
-Depois de subir os container da aplicação, você pode acessar o front end utilizando o endereço http://localhost:3000.
-
-Em funções da limitação de tempo no desenvolvimento, alguns pontos foram indicados na seção de **Melhorias Futuras** para esse projeto. Uma delas é a utilização de variáveis de ambiente no front end. No momento, se por alguma razão for necessário alterar a URL base para comunicação com a api, por favor, edite o arquivo _app/frontend/src/services/baseURL.js_.
-
-### Comandos Complementares
-
-Caso você queira reiniciar a aplicação local, você pode desmontar os containers utilizando:
+Caso você deseje finalizar as aplicações, basta utilizar o seguinte comando para "derrubar" os containers:
 
 ```bash
 docker-compose down
 ```
 
-E depois reiniciar a aplicação com:
+### Rodando Testes Unitários
+
+Testes unitários foram construídos para as camadas da arquitetura MSC (models, services e controllers). Para rodar os testes localmente é necessário que uma alteração no arquivo **docker-compose** seja realizada. Assim, abra o arquivo **docker-compose** e descomente as linhas 11, 13 e 15.
+
+<img src="assets/docker-compose.png" alt="drawing" style="width:400px;"/>
+
+Assim, o comando _npm start_ não irá iniciar a aplicação da API ao subir o respectivo contair.
+
+Feitas as alterações indicadas no arquivo **docker-compose**, é necessário que você siga os seguintes passos para rodas os testes unitários:
+
+Passo 1. Rode os containers da aplicação:
 
 ```bash
-docker-compose up -d --build
+docker-compose up -d
 ```
 
-## Melhorias Futuras
+Passo 2. Rode o seguinte comando para acessar o terminal do container com a aplicação da API.
 
-Aqui são apresentadas possíveis melhorias que ainda não foram implementadas no projeto.
+```bash
+docker exec -it universities bash
+```
 
-- Utilizar variáveis de ambiente para definir a url da api para o front end e para fornecer a string de acesso ao banco de dados no back end.
-- Aprimorar a componentização do front end, principalmente para os componentes Update e Register.
-- Implementar testes unitários para font e back end.
-- Implementar testes E2E para o front e back end.
-- Adicionar um sistema de login e autenticação ao sistema. Uma opção seria utilizar JWT, de modo a liberar acesso as funcionalidades das rotas apenas a usuários autorizados.
-  - Adicionar rota de login e criação de usuário.
-- Aprimorar a estrutura organizacional do back end
-- Aplicar conceitos SOLID em ambas as aplicações, front end e back end.
+Passo 3. Por precaução, certifique-se de que as dependências estão instaladas, rodando:
 
-## Referências Utilizadas
+```bash
+npm install
+```
 
-Além da documentação das técnologias previamente cidatas, também foram utilizados guias de implementação. Abaixo são listadas as referências utilizadas:
+Passo 4. Rode o comando que executa os testes unitários:
 
-- [Developing and Testing an Asynchronous API with FastAPI and Pytest](https://testdriven.io/blog/fastapi-crud/#get-routes)
-- [Building a CRUD App with FastAPI and MongoDB](https://testdriven.io/blog/fastapi-mongo/#update)
-- [The Ultimate FastAPI Tutorial](https://christophergs.com/tutorials/ultimate-fastapi-tutorial-pt-1-hello-world/)
-- [Setup black, isort, flake8 in VSCode](https://medium.com/@jackklpan/auto-format-and-lint-by-black-isort-flake8-in-vs-visual-studio-code-a62a3f5d940e)
+```bash
+npm run test:dev
+```
+
+Os testes devem ser executados e os resultados apresentados no próprio terminal.
+
+**Importante!** lembre-se de comentar as linhas 11, 13 e 15 após finalizar a análise dos testes da aplicação.
