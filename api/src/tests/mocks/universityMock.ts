@@ -1,8 +1,14 @@
+// 👇️ ts-nocheck ignores all ts errors in the file
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { IUniversity } from '../../interfaces/IUniversity';
+
+const url = 'www.ufsc.edu.br';
 
 const universityMock: IUniversity = {
   alphaTwoCode: 'BR',
-  webPages: ['www.ufsc.edu.br'],
+  webPages: [url],
   name: 'UFSC',
   country: 'Brazil',
   domains: ['ufsc.edu.br'],
@@ -12,7 +18,7 @@ const universityMock: IUniversity = {
 const universityMockWithId: IUniversity & { _id: string } = {
   _id: '6323930286e451c2a5727b9d',
   alphaTwoCode: 'BR',
-  webPages: ['www.ufsc.edu.br'],
+  webPages: [url],
   name: 'UFSC',
   country: 'Brazil',
   domains: ['ufsc.edu.br'],
@@ -21,24 +27,24 @@ const universityMockWithId: IUniversity & { _id: string } = {
 
 const universityExternalMock = {
   alpha_two_code: 'BR',
-  web_pages‌: ['www.ufsc.edu.br'],
+  web_pages: [url],
   name: 'UFSC',
   country: 'Brazil',
   domains: ['ufsc.edu.br'],
-  'state-province‌': 'Santa Catarina',
+  'state-province': 'Santa Catarina',
 };
 
 const universityExternalMockWithId = {
   alpha_two_code: 'BR',
-  web_pages‌: [
-    'www.ufsc.edu.br',
+  web_pages: [
+    url,
   ],
   name: 'UFSC',
   country: 'Brazil',
   domains: [
     'ufsc.edu.br',
   ],
-  'state-province‌': 'Santa Catarina',
+  'state-province': 'Santa Catarina',
   _id: '6323930286e451c2a5727b9d',
 };
 
