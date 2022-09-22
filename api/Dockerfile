@@ -1,11 +1,11 @@
 FROM node:16.14
 
-WORKDIR /app
+WORKDIR /api
 
 COPY package*.json ./
 
 RUN ["npm", "i"] 
 
-COPY . .
+COPY . ./
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
