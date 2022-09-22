@@ -1,7 +1,5 @@
-// import { IService } from '../interfaces/IService';
 import { IServiceUniversity } from '../interfaces/IServiceUniversity';
 import { IUniversity, UniversityZodSchema } from '../interfaces/IUniversity';
-// import { IModel } from '../interfaces/IModel';
 import { IModelUniversity } from '../interfaces/IModelUniversity';
 import { ErrorTypes } from '../errors/catalog';
 
@@ -40,7 +38,8 @@ class UniversityService implements IServiceUniversity<IUniversity> {
   }
 
   public async readByCountry(country: string, page: number): Promise<IUniversity[]> {
-    const universities = await this._university.readByCountry(country, page * this.numberPerPage);
+    const Country = country.charAt(0).toUpperCase() + country.slice(1).toLowerCase();
+    const universities = await this._university.readByCountry(Country, page * this.numberPerPage);
     if (!universities) throw new Error(ErrorTypes.EntityNotFound);
     return universities;
   }
