@@ -13,6 +13,7 @@ const getAllExternalData = async () => {
   } catch (error) {
     console.log(error);
   }
+
   return convertToInternalPatternArray(allUniversitiesData.flat(1));
 };
 

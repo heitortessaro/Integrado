@@ -1,10 +1,10 @@
 const dictionary = {
   alphaTwoCode: 'alpha_two_code',
-  webPages: 'web_pages‌',
+  webPages: 'web_pages',
   name: 'name',
   country: 'country',
   domains: 'domains',
-  stateProvince: 'state-province‌',
+  stateProvince: 'state-province',
 };
 
 function convertToInternalPattern(obj) {
