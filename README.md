@@ -170,3 +170,12 @@ npm run test:dev
 Os testes devem ser executados e os resultados apresentados no próprio terminal.
 
 **Importante!** lembre-se de comentar as linhas 11, 13 e 15 após finalizar a análise dos testes da aplicação.
+
+### Melhorias Futuras
+
+Essas melhorias foram apontadas após a correção dos testes.
+
+- Rotas não existentes não são tratadas;
+- Quando a busca por universidade ou país não encontram um resultado correspondente nas queries, deve-se retornam um erro indicando a respectiva situação;
+- Verificar o motivo dos testes do controller não estarem passando;
+- Verificar warning de segurança apontado pelo Mocka nos testes;
